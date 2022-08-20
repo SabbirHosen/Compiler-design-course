@@ -35,7 +35,17 @@ def hashing(name):
 # values to the hash table
 def insert(name, type):
     hash_key = hashing(name=name)
-    hash_table[hash_key].append((name, type))
+    data_exist = False
+    for s_name, s_type in hash_table[hash_key]:
+        if name == s_name and type == s_type:
+            data_exist = True
+            break
+    if data_exist:
+        print(f"{name} --> Symbol or Name is exist in the table!!")
+    else:
+        hash_table[hash_key].append((name, type))
+        print(f"{name} --> Added successfully in the table!!")
+
 
 # Search function to find the element using name/symbol
 def search(name):
@@ -52,6 +62,7 @@ def search(name):
     else:
         print(f"{name} --> Symbol or Name is not found in the table!!")
 
+
 # Delete items from the symbol table
 def delete(name):
     hash_key = hashing(name=name)
@@ -66,6 +77,7 @@ def delete(name):
 
     else:
         print(f"{name} --> Symbol or Name is not found in the table!!")
+
 
 # Update the item in the symbol table
 def update(name, type):
@@ -109,12 +121,13 @@ if __name__ == '__main__':
                 name = input("Enter a name/ symbol to delete from the symbol table: ")
                 delete(name)
             elif m == 4:
-                print('-'*100)
+                print('-' * 100)
                 print('Symbol Table')
                 display_hash()
                 print('-' * 100, end='\n')
             elif m == 5:
-                name, new_type = input("Enter the name/symbol and new type value with space separate for update: ").split(' ', maxsplit=1)
+                name, new_type = input(
+                    "Enter the name/symbol and new type value with space separate for update: ").split(' ', maxsplit=1)
                 update(name, new_type)
             elif m == 6:
                 name = input("Enter a name/ symbol to get hash value: ")
